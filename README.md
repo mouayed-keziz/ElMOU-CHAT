@@ -1,6 +1,6 @@
 Im still working on this project.
 
-# \*Lmou Chat\*
+# \*ELMOU CHAT\*
 
 This project was created by [Keziz Mouayed](https://github.com/mouayedKeziz01).
 
