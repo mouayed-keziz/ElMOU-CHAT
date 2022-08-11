@@ -1,12 +1,12 @@
 import {
-  Button,
-  Container,
-  createStyles,
-  Group,
-  List,
-  Text,
-  ThemeIcon,
-  Title,
+      Button,
+      Container,
+      createStyles,
+      Group,
+      List,
+      Text,
+      ThemeIcon,
+      Title
 } from "@mantine/core";
 import { IconCheck } from "@tabler/icons";
 import { Link } from "react-router-dom";

@@ -1,52 +1,48 @@
 {
-  //"name": "chat-app-react-firebase-webstorm",
-  "name": "elmou-chat",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@chakra-ui/react": "^2.2.6",
-    "@mantine/core": "^5.0.3",
-    "@mantine/ds": "^5.0.3",
-    "@mantine/form": "^5.0.3",
-    "@mantine/hooks": "^5.0.3",
-    "@mui/icons-material": "^5.8.4",
-    "@mui/material": "^5.9.3",
-    "@tabler/icons": "^1.78.1",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.3.0",
-    "react-scripts": "5.0.1",
-    "react-undraw-illustrations": "^2.0.3",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "prettier": "2.7.1"
-  }
+      "name": "elmou-chat",
+      "version": "0.1.0",
+      "private": true,
+      "dependencies": {
+            "@mantine/core": "^5.0.3",
+            "@mantine/ds": "^5.0.3",
+            "@mantine/form": "^5.0.3",
+            "@mantine/hooks": "^5.0.3",
+            "@tabler/icons": "^1.78.1",
+            "@testing-library/jest-dom": "^5.16.5",
+            "@testing-library/react": "^13.3.0",
+            "@testing-library/user-event": "^13.5.0",
+            "react": "^18.2.0",
+            "react-dom": "^18.2.0",
+            "react-router-dom": "^6.3.0",
+            "react-scripts": "5.0.1",
+            "react-undraw-illustrations": "^2.0.3",
+            "web-vitals": "^2.1.4"
+      },
+      "scripts": {
+            "start": "react-scripts start",
+            "build": "react-scripts build",
+            "test": "react-scripts test",
+            "eject": "react-scripts eject"
+      },
+      "eslintConfig": {
+            "extends": [
+                  "react-app",
+                  "react-app/jest"
+            ]
+      },
+      "browserslist": {
+            "production": [
+                  ">0.2%",
+                  "not dead",
+                  "not op_mini all"
+            ],
+            "development": [
+                  "last 1 chrome version",
+                  "last 1 firefox version",
+                  "last 1 safari version"
+            ]
+      },
+      "devDependencies": {
+            "prettier": "2.7.1"
+      }
 }
