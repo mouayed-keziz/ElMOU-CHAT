@@ -1,5 +1,6 @@
 {
-  "name": "chat-app-react-firebase-webstorm",
+  //"name": "chat-app-react-firebase-webstorm",
+  "name": "elmou-chat",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
