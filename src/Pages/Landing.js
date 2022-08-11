@@ -1,8 +1,6 @@
 import { ActionIcon, useMantineColorScheme } from "@mantine/core";
-import { IconSun, IconMoonStars } from "@tabler/icons";
-import Navbar from "../Components/Navbar";
+import { IconMoonStars, IconSun } from "@tabler/icons";
 import HeroHeader from "../Components/HeroHeader";
-import Footer from "../Components/Footer";
 
 export function SwitchThemeButton() {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
@@ -20,13 +18,5 @@ export function SwitchThemeButton() {
 }
 
 export default function Landing() {
-  return (
-    <div className="App">
-      <Navbar links />
-      <div style={{ marginTop: "-130px" }}>
-        <HeroHeader />
-      </div>
-      <Footer />
-    </div>
-  );
+  return <HeroHeader />;
 }
