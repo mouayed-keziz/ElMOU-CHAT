@@ -3,10 +3,10 @@ import ConversationHeader from "./ConevrsationHeader";
 import ConevrsationTabs from "./ConevsationTabs";
 
 export default function Conversation() {
-      return (
-            <Stack>
-                  <ConversationHeader name={"Mouayed Keziz"} />
-                  <ConevrsationTabs />
-            </Stack>
-      );
+  return (
+    <Stack>
+      <ConversationHeader name={"Mouayed Keziz"} />
+      <ConevrsationTabs />
+    </Stack>
+  );
 }

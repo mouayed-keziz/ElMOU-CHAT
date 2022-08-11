@@ -13,45 +13,44 @@ import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-      <React.StrictMode>
-            <ApplicationRoutingAndThemeManager />
-      </React.StrictMode>
+  <React.StrictMode>
+    <ApplicationRoutingAndThemeManager />
+  </React.StrictMode>
 );
 
 function ApplicationRoutingAndThemeManager() {
-      const preferredColorScheme = useColorScheme("dark");
-      const [colorScheme, setColorScheme] = useState(preferredColorScheme);
-      const toggleColorScheme = () =>
-            setColorScheme(colorScheme === "dark" ? "light" : "dark");
+  const preferredColorScheme = useColorScheme("dark");
+  const [colorScheme, setColorScheme] = useState(preferredColorScheme);
+  const [primaryColor, setPrimaryColor] = useState("blue");
 
-      return (
-            <ColorSchemeProvider
-                  colorScheme={colorScheme}
-                  toggleColorScheme={toggleColorScheme}
-            >
-                  <MantineProvider
-                        theme={{ colorScheme }}
-                        withGlobalStyles
-                        withNormalizeCSS
-                  >
-                        <Router>
-                              <NavigationBar />
-                              <Routes>
-                                    <Route path={"/"} element={<Landing />} />
-                                    <Route
-                                          path={"/login"}
-                                          element={<Login />}
-                                    />
-                                    <Route
-                                          path={"/chat"}
-                                          element={<ChatRoom />}
-                                    />
-                              </Routes>
-                              {/*<Footer />*/}
-                        </Router>
-                  </MantineProvider>
-            </ColorSchemeProvider>
-      );
+  const toggleColorScheme = () =>
+    setColorScheme(colorScheme === "dark" ? "light" : "dark");
+
+  return (
+    <ColorSchemeProvider
+      colorScheme={colorScheme}
+      toggleColorScheme={toggleColorScheme}
+    >
+      <MantineProvider
+        theme={{ colorScheme, primaryColor: primaryColor }}
+        withGlobalStyles
+        withNormalizeCSS
+      >
+        <Router>
+          <NavigationBar
+            primaryColor={primaryColor}
+            primaryColorHandeler={setPrimaryColor}
+          />
+          <Routes>
+            <Route path={"/"} element={<Landing color={primaryColor} />} />
+            <Route path={"/login"} element={<Login />} />
+            <Route path={"/chat"} element={<ChatRoom />} />
+          </Routes>
+          {/*<Footer />*/}
+        </Router>
+      </MantineProvider>
+    </ColorSchemeProvider>
+  );
 }
 
 reportWebVitals();

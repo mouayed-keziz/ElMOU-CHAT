@@ -1,12 +1,12 @@
 import {
-      Button,
-      Container,
-      createStyles,
-      Group,
-      List,
-      Text,
-      ThemeIcon,
-      Title
+  Button,
+  Container,
+  createStyles,
+  Group,
+  List,
+  Text,
+  ThemeIcon,
+  Title,
 } from "@mantine/core";
 import { IconCheck } from "@tabler/icons";
 import { Link } from "react-router-dom";
@@ -67,7 +67,9 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function HeroHeader() {
+export default function HeroHeader(props) {
+  const { color } = props;
+
   const { classes } = useStyles(null);
   return (
     <div>
@@ -116,20 +118,22 @@ export default function HeroHeader() {
                   Get started
                 </Button>
               </Link>
-              <a href={"https://github.com/mouayedKeziz01/"}>
+              <Link to={"/chat"}>
                 <Button
                   variant="default"
                   radius="xl"
                   size="md"
                   className={classes.control}
                 >
-                  Source code
+                  Chat
                 </Button>
-              </a>
+              </Link>
             </Group>
           </div>
           <Container className={classes.image}>
-            <UndrawChatting primaryColor={"rgb(25, 113, 194)"} color={"red"} />
+            <UndrawChatting
+              primaryColor={color === "blue" ? "rgb(25, 113, 194)" : color}
+            />
           </Container>
         </div>
       </Container>

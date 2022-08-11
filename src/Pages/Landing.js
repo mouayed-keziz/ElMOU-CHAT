@@ -1,22 +1,23 @@
-import { ActionIcon, useMantineColorScheme } from "@mantine/core";
+import { ThemeIcon, useMantineColorScheme } from "@mantine/core";
 import { IconMoonStars, IconSun } from "@tabler/icons";
 import HeroHeader from "../Components/HeroHeader";
 
 export function SwitchThemeButton() {
-      const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-      const dark = colorScheme === "dark";
-      return (
-            <ActionIcon
-                  variant="outline"
-                  color={"blue"}
-                  onClick={() => toggleColorScheme()}
-                  title="Toggle color scheme"
-            >
-                  {dark ? <IconSun size={18} /> : <IconMoonStars size={18} />}
-            </ActionIcon>
-      );
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const dark = colorScheme === "dark";
+  return (
+    <ThemeIcon
+      variant="outline"
+      color={"primary"}
+      onClick={() => toggleColorScheme()}
+      title="Toggle color scheme"
+    >
+      {dark ? <IconSun size={18} /> : <IconMoonStars size={18} />}
+    </ThemeIcon>
+  );
 }
 
-export default function Landing() {
-      return <HeroHeader />;
+export default function Landing(props) {
+  const { color } = props;
+  return <HeroHeader color={color} />;
 }
