@@ -11,6 +11,7 @@ export function SwitchThemeButton() {
       color={"primary"}
       onClick={() => toggleColorScheme()}
       title="Toggle color scheme"
+      style={{ cursor: "pointer" }}
     >
       {dark ? <IconSun size={18} /> : <IconMoonStars size={18} />}
     </ThemeIcon>

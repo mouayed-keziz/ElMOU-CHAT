@@ -4,7 +4,7 @@ import MessagesTab from "./MessagesTab";
 
 export default function ConevrsationTabs() {
   return (
-    <Tabs variant="outline" radius="xs" defaultValue="messages">
+    <Tabs radius="xs" defaultValue="messages">
       <Tabs.List grow>
         <Tabs.Tab value="messages" icon={<IconMessageCircle size={14} />}>
           Messages
@@ -17,15 +17,11 @@ export default function ConevrsationTabs() {
         </Tabs.Tab>
       </Tabs.List>
 
-      <Tabs.Panel value="messages" pt="xs">
+      <Tabs.Panel value="messages">
         <MessagesTab name={"Mouayed"} />
       </Tabs.Panel>
-      <Tabs.Panel value="gallery" pt="xs">
-        Gallery
-      </Tabs.Panel>
-      <Tabs.Panel value="settings" pt="xs">
-        Settings
-      </Tabs.Panel>
+      <Tabs.Panel value="gallery">Gallery</Tabs.Panel>
+      <Tabs.Panel value="settings">Settings</Tabs.Panel>
     </Tabs>
   );
 }

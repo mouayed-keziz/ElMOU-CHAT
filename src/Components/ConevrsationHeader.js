@@ -8,7 +8,7 @@ export default function ConversationHeader(props) {
           theme.colorScheme === "dark"
             ? theme.colors.dark[6]
             : theme.colors.gray[0],
-        padding: theme.spacing.xl,
+        padding: theme.spacing.sm,
         borderRadius: theme.radius.md,
         cursor: "pointer",
 
@@ -22,7 +22,7 @@ export default function ConversationHeader(props) {
     >
       <Group>
         <Avatar color="primary" radius="xl">
-          {name.slice(0, 2)}
+          {name.charAt(0)}
         </Avatar>
 
         <div style={{ flex: 1 }}>

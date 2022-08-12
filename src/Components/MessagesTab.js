@@ -9,6 +9,7 @@ import {
   Space,
   Stack,
 } from "@mantine/core";
+import Message from "./Message";
 
 const useStyle = createStyles((theme) => ({
   stack: {
@@ -25,6 +26,11 @@ const useStyle = createStyles((theme) => ({
       }).background,
       0.1
     ),
+    borderRadius: theme.radius.lg,
+    paddingLeft: theme.spacing.md,
+    paddingRight: theme.spacing.md,
+    paddingTop: theme.spacing.sm,
+    paddingBottom: theme.spacing.sm,
     color: theme.white,
     fontWeight: 700,
     fontSize: 28,
@@ -32,9 +38,11 @@ const useStyle = createStyles((theme) => ({
   },
   text: {
     textAlign: "center",
+    margin: 0,
+    padding: 0,
   },
   scrollArea: {
-    height: "65vh",
+    height: "70vh",
     backgroundColor: theme.backgroundColor,
   },
 }));
@@ -44,36 +52,47 @@ export default function MessagesTab(props) {
   return (
     <Box
       sx={(theme) => ({
+        marginTop: theme.spacing.md,
         backgroundColor:
           theme.colorScheme === "dark"
             ? theme.colors.dark[6]
             : theme.colors.gray[0],
         textAlign: "center",
-        padding: theme.spacing.xl,
+        padding: theme.spacing.sm,
         borderRadius: theme.radius.md,
       })}
     >
       <ScrollArea className={classes.scrollArea}>
         <Center>
           <Stack align="center" className={classes.gap}>
-            <Space h="lg" />
+            <Space h="xs" />
             <Avatar
               color={"primary"}
               size="xl"
               radius="xl"
               className={classes.avatar}
+              m={0}
+              p={0}
             >
-              {name.substring(0, 2)}
+              {name.charAt(0)}
             </Avatar>
-            <h2 className={classes.text} mt={-100}>
-              {"This is the beggining of your conversation with "}{" "}
-              <Code className={classes.AppName}>{name}</Code>
-            </h2>
+            {/*
+              <h2 className={classes.text}>
+                <Code className={classes.AppName}>{name}</Code>
+              </h2>
+            */}
           </Stack>
         </Center>
-        <Center>
-          <h2>/messages here/</h2>
-        </Center>
+        <Space h={"xl"} />
+        <Space h={"xl"} />
+        <Message
+          id="idTest"
+          name="Mouayed"
+          text="Hello H H H H H H H H H H H H H H H H H H H H H H H H H H H H "
+          photo={true}
+          src="/logo192.png"
+        />
+        <Message id="idTest2" name="Mouayed" text="Hello world" photo={false} />
       </ScrollArea>
       <Divider my="sm" />
     </Box>

@@ -37,10 +37,12 @@ function ApplicationRoutingAndThemeManager() {
         withNormalizeCSS
       >
         <Router>
-          <NavigationBar
-            primaryColor={primaryColor}
-            primaryColorHandeler={setPrimaryColor}
-          />
+          {
+            <NavigationBar
+              primaryColor={primaryColor}
+              primaryColorHandeler={setPrimaryColor}
+            />
+          }
           <Routes>
             <Route path={"/"} element={<Landing color={primaryColor} />} />
             <Route path={"/login"} element={<Login />} />

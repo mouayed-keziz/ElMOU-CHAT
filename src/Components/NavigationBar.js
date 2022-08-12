@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import {
   Burger,
   Container,
@@ -145,11 +146,15 @@ export default function NavigationBar(props) {
         <MantineLogo type="mark" size={28} />
         <Group spacing={5} className={classes.links}>
           {items}
-          <SwitchThemeButton />
-          <PrimaryColorHandelerComponent
-            primaryColor={primaryColor}
-            primaryColorHandeler={primaryColorHandeler}
-          />
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            <SwitchThemeButton />
+          </motion.div>
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            <PrimaryColorHandelerComponent
+              primaryColor={primaryColor}
+              primaryColorHandeler={primaryColorHandeler}
+            />
+          </motion.div>
         </Group>
 
         <Burger
@@ -215,6 +220,7 @@ function PrimaryColorHandelerComponent(props) {
 
       <Group centered>
         <ThemeIcon
+          style={{ cursor: "pointer" }}
           variant="outline"
           color={"primary"}
           onClick={() => setOpened(true)}
