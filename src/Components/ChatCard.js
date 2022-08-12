@@ -23,7 +23,7 @@ const useStyles = createStyles((theme) => ({
     },
   },
   dontShowBetweenSmXs: {
-    "@media (max-width: 675px)": {
+    "@media (max-width: 674px)": {
       display: "none",
     },
     "@media (max-width: 643px)": {
