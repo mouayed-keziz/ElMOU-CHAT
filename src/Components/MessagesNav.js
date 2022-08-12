@@ -1,6 +1,7 @@
 import { Code, createStyles, Group, Navbar, ScrollArea } from "@mantine/core";
 import { IconLogout, IconSettings } from "@tabler/icons";
 import { ChatCard, SkeletonChatCard } from "../Components/ChatCard";
+import { motion } from "framer-motion";
 
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef("icon");
@@ -97,7 +98,7 @@ export default function MessagesNav() {
   const ChatCards = (
     <ScrollArea style={{ height: "65vh", borderRadius: "4%" }}>
       {data.map((v) => (
-        <div>
+        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.9 }}>
           {v !== 2 ? (
             <ChatCard
               image={"/logo192.png"}
@@ -108,7 +109,7 @@ export default function MessagesNav() {
           ) : (
             <SkeletonChatCard />
           )}
-        </div>
+        </motion.div>
       ))}
     </ScrollArea>
   );
@@ -117,28 +118,35 @@ export default function MessagesNav() {
     <Navbar height={"90vh"} p="md">
       <Navbar.Section grow>
         <Group className={classes.header} position="apart">
-          <Code className={classes.AppName}>ELMOU CHAT</Code>
+          <motion.div whileHover={{ scale: 1.1 }}>
+            <Code py={5} className={classes.AppName}>
+              ELMOU CHAT
+            </Code>
+          </motion.div>
         </Group>
         {ChatCards}
       </Navbar.Section>
       <Navbar.Section className={classes.footer}>
-        <a
-          href="/settings"
-          className={classes.link}
-          onClick={(event) => event.preventDefault()}
-        >
-          <IconSettings className={classes.linkIcon} stroke={1.5} />
-          <span className={classes.twoLastSpams}>Settings</span>
-        </a>
-
-        <a
-          href="/logout"
-          className={classes.link}
-          onClick={(event) => event.preventDefault()}
-        >
-          <IconLogout className={classes.linkIcon} stroke={1.5} />
-          <span className={classes.twoLastSpams}>Logout</span>
-        </a>
+        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <a
+            href="/settings"
+            className={classes.link}
+            onClick={(event) => event.preventDefault()}
+          >
+            <IconSettings className={classes.linkIcon} stroke={1.5} />
+            <span className={classes.twoLastSpams}>Settings</span>
+          </a>
+        </motion.div>
+        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <a
+            href="/logout"
+            className={classes.link}
+            onClick={(event) => event.preventDefault()}
+          >
+            <IconLogout className={classes.linkIcon} stroke={1.5} />
+            <span className={classes.twoLastSpams}>Logout</span>
+          </a>
+        </motion.div>
       </Navbar.Section>
     </Navbar>
   );

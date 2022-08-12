@@ -1,6 +1,7 @@
 import { ThemeIcon, useMantineColorScheme } from "@mantine/core";
 import { IconMoonStars, IconSun } from "@tabler/icons";
 import HeroHeader from "../Components/HeroHeader";
+import NavigationBar from "../Components/NavigationBar";
 
 export function SwitchThemeButton() {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
@@ -19,6 +20,14 @@ export function SwitchThemeButton() {
 }
 
 export default function Landing(props) {
-  const { color } = props;
-  return <HeroHeader color={color} />;
+  const { primaryColorHandeler, color } = props;
+  return (
+    <div>
+      <NavigationBar
+        primaryColor={color}
+        primaryColorHandeler={primaryColorHandeler}
+      />
+      <HeroHeader color={color} />
+    </div>
+  );
 }

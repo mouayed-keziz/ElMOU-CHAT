@@ -17,7 +17,6 @@ import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 import { SwitchThemeButton } from "../Pages/Landing";
 import { IconColorSwatch } from "@tabler/icons";
-
 const HEADER_HEIGHT = 60;
 
 const useStyles = createStyles((theme) => ({
@@ -146,10 +145,10 @@ export default function NavigationBar(props) {
         <MantineLogo type="mark" size={28} />
         <Group spacing={5} className={classes.links}>
           {items}
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <motion.div whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.9 }}>
             <SwitchThemeButton />
           </motion.div>
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+          <motion.div whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.9 }}>
             <PrimaryColorHandelerComponent
               primaryColor={primaryColor}
               primaryColorHandeler={primaryColorHandeler}
@@ -199,21 +198,24 @@ function PrimaryColorHandelerComponent(props) {
       >
         <Group position="center" spacing="xs">
           {colors.map((color) => (
-            <ColorSwatch
-              style={{
-                cursor: "pointer",
-                border: "1px solid #fff",
-              }}
-              key={color}
-              color={color}
-              onClick={() => {
-                primaryColorHandeler(color);
-                setOpened(false);
-              }}
-            >
-              {" "}
-              {primaryColor === color && <CheckIcon color="black" width={10} />}
-            </ColorSwatch>
+            <motion.div whileHover={{ scale: 1.3 }} whileTap={{ scale: 0.8 }}>
+              <ColorSwatch
+                style={{
+                  cursor: "pointer",
+                  border: "1px solid #fff",
+                }}
+                key={color}
+                color={color}
+                onClick={() => {
+                  primaryColorHandeler(color);
+                  setOpened(false);
+                }}
+              >
+                {primaryColor === color && (
+                  <CheckIcon color="black" width={10} />
+                )}
+              </ColorSwatch>
+            </motion.div>
           ))}
         </Group>
       </Modal>

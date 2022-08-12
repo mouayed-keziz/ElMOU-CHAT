@@ -3,8 +3,8 @@ import {
   Group,
   Text,
   Avatar,
-  Box,
   Container,
+  HoverCard,
 } from "@mantine/core";
 
 const useStyle = createStyles((theme) => ({
@@ -44,26 +44,45 @@ export default function Message(props) {
   return (
     <Group mb={10} position={authID === id ? "right" : "left"}>
       <Group className={authID === id ? classes.group : null}>
-        <Avatar
-          src={photo ? src : null}
-          size="lg"
-          color="primary"
-          radius={"xl"}
-        >
-          {name ? name.charAt(0) : null}
-        </Avatar>
-        <Container
-          className={
-            authID === id
-              ? classes.messageContainerSent
-              : classes.messageContainerReceived
-          }
-          size="xs"
-          px="md"
-          py="xs"
-        >
-          {text}
-        </Container>
+        <HoverCard>
+          <HoverCard.Target>
+            <Avatar
+              src={photo ? src : null}
+              size="lg"
+              color="primary"
+              radius={"xl"}
+            >
+              {name ? name.charAt(0) : null}
+            </Avatar>
+          </HoverCard.Target>
+          <HoverCard.Dropdown>
+            <Text size="sm">{name}</Text>
+          </HoverCard.Dropdown>
+        </HoverCard>
+
+        <HoverCard>
+          <HoverCard.Target>
+            <Container
+              className={
+                authID === id
+                  ? classes.messageContainerReceived
+                  : classes.messageContainerReceived
+              }
+              style={{
+                maxWidth: "60%",
+                marginLeft: 0,
+                marginRight: 0,
+              }}
+              px="md"
+              py="xs"
+            >
+              {text}
+            </Container>
+          </HoverCard.Target>
+          <HoverCard.Dropdown>
+            <Text size="sm">{"time:27/10/2002"}</Text>
+          </HoverCard.Dropdown>
+        </HoverCard>
       </Group>
     </Group>
   );
