@@ -1,3 +1,7 @@
+/*
+    abandoned code
+    time : 14/08/2022
+*/
 import { initializeApp } from "firebase/app";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
