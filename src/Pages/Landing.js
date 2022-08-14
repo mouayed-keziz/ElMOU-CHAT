@@ -2,7 +2,7 @@ import { ThemeIcon, useMantineColorScheme } from "@mantine/core";
 import { IconMoonStars, IconSun } from "@tabler/icons";
 import HeroHeader from "../Components/HeroHeader";
 import NavigationBar from "../Components/NavigationBar";
-
+import Footer from "../Components/Footer";
 export function SwitchThemeButton() {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
