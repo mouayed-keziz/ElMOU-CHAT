@@ -28,6 +28,7 @@ export default function Landing(props) {
         primaryColorHandeler={primaryColorHandeler}
       />
       <HeroHeader color={color} />
+      <Footer />
     </div>
   );
 }

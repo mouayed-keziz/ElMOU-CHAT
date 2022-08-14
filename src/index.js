@@ -58,7 +58,6 @@ function ApplicationRoutingAndThemeManager() {
             />
             <Route path={"/chat"} element={<ChatRoom />} />
           </Routes>
-          {/*<Footer />*/}
         </Router>
       </MantineProvider>
     </ColorSchemeProvider>
