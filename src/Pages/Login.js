@@ -54,7 +54,7 @@ export default function Login(props) {
               Google
             </Button>
             <Button leftIcon={<IconBrandFacebook />} radius="xl">
-              Mouayed
+              Facebook
             </Button>
           </Group>
 
