@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 //import "./App.css";
-import { db } from "./firebase-config";
+import { db } from "./firebase/firebase_db.js";
 import {
   collection,
   getDocs,
