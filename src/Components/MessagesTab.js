@@ -2,18 +2,14 @@ import {
   ActionIcon,
   Avatar,
   Box,
-  Button,
   Center,
-  Code,
   createStyles,
   Divider,
-  Grid,
   Group,
   Input,
   ScrollArea,
   Space,
   Stack,
-  ThemeIcon,
 } from "@mantine/core";
 import { IconMail as IconAt, IconSend } from "@tabler/icons";
 import Message from "./Message";

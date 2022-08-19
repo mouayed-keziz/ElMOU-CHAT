@@ -2,7 +2,7 @@ import { Code, createStyles, Group, Navbar, ScrollArea } from "@mantine/core";
 import { IconLogout, IconSettings } from "@tabler/icons";
 import { ChatCard, SkeletonChatCard } from "../Components/ChatCard";
 import { motion } from "framer-motion";
-
+import { auth } from "../firebase";
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef("icon");
   return {
@@ -143,7 +143,7 @@ export default function MessagesNav() {
             className={classes.link}
             onClick={(event) => event.preventDefault()}
           >
-            <IconLogout className={classes.linkIcon} stroke={1.5} />
+            <IconLogout onClick={auth.signOut()} className={classes.linkIcon} stroke={1.5} />
             <span className={classes.twoLastSpams}>Logout</span>
           </a>
         </motion.div>

@@ -1,5 +1,4 @@
 {
-    
       "name": "elmou-chat",
       "version": "0.1.0",
       "private": true,
@@ -25,9 +24,6 @@
       "scripts": {
             "start": "react-scripts start",
             "build": "react-scripts build",
-            "rob": "/usr/bin/google-chrome-stable --ignore-gpu-blocklist --disable-features=UseChromeOSDirectVideoDecoder --use-gl=desktop --enable-features=VaapiVideoDecoder %U",
-            "predeploy": "npm run build",
-            "deploy": "gh-pages -d build",
             "test": "react-scripts test",
             "eject": "react-scripts eject"
       },
@@ -50,7 +46,6 @@
             ]
       },
       "devDependencies": {
-            "gh-pages": "^4.0.0",
             "prettier": "2.7.1"
       }
 }

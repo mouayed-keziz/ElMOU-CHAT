@@ -14,9 +14,21 @@ import {
 import { useForm } from "@mantine/form";
 import { upperFirst, useToggle } from "@mantine/hooks";
 import { IconBrandFacebook, IconBrandGoogle } from "@tabler/icons";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { auth, db } from "../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { doc, setDoc } from "firebase/firestore";
 
 export default function LoginForm(props) {
+  const [user] = useAuthState(auth);
+  const navigate = useNavigate();
+  if (user) {
+    //navigate("/chat");
+  }
   const [type, toggle] = useToggle(["login", "register"]);
+  const [unvalid, setUnvalid] = useState(false);
   const form = useForm({
     initialValues: {
       email: "",
@@ -24,7 +36,6 @@ export default function LoginForm(props) {
       password: "",
       terms: true,
     },
-
     validate: {
       email: (val) => (/^\S+@\S+$/.test(val) ? null : "Invalid email"),
       password: (val) =>
@@ -33,6 +44,41 @@ export default function LoginForm(props) {
           : null,
     },
   });
+
+  const putUserInfoInDb = async (user) => {
+    await setDoc(doc(db, "users", user.uid), {
+      name: user.displayName,
+      email: user.email,
+      photoURL: user.photoURL,
+    });
+    console.log("db done");
+  };
+
+  const submitHandeler = (e) => {
+    e.preventDefault();
+    if (type === "login") {
+      signInWithEmailAndPassword(auth, form.values.email, form.values.password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          setUnvalid(false);
+          navigate("/chat");
+        }).catch((error) => {
+          const errorMessage = error.message;
+          console.log(errorMessage);
+          setUnvalid(true);
+        });
+    } else {
+      createUserWithEmailAndPassword(auth, form.values.email, form.values.password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(user);
+          putUserInfoInDb(user);
+        }).catch((error) => {
+          const errorMessage = error.message;
+          console.log(errorMessage)
+        });
+    }
+  };
   return (
     <Container size={500} mt={100} mb={100}>
       <Paper radius="md" p="xl" withBorder {...props}>
@@ -55,7 +101,7 @@ export default function LoginForm(props) {
           my="lg"
         />
 
-        <form onSubmit={form.onSubmit(() => {})}>
+        <form onSubmit={submitHandeler}>
           <Stack>
             {type === "register" && (
               <TextInput
@@ -103,7 +149,12 @@ export default function LoginForm(props) {
               />
             )}
           </Stack>
-
+          <Divider
+            color={unvalid ? "red" : "gray"}
+            label={unvalid ? "Invalid email or password" : ""}
+            labelPosition="center"
+            my="lg"
+          />
           <Group position="apart" mt="xl">
             <Anchor
               component="button"
@@ -120,6 +171,7 @@ export default function LoginForm(props) {
           </Group>
         </form>
       </Paper>
+      <button onClick={(e) => putUserInfoInDb()}>debugging button!</button>
     </Container>
   );
 }
