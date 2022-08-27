@@ -2,10 +2,7 @@ import { ColorSchemeProvider, MantineProvider } from "@mantine/core";
 import { useColorScheme } from "@mantine/hooks";
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import ChatRoom from "./Pages/ChatRoom";
-import Landing from "./Pages/Landing";
-import Login from "./Pages/Login";
+import App from "./App";
 
 //import reportWebVitals from "./reportWebVitals";
 
@@ -34,29 +31,7 @@ function ApplicationRoutingAndThemeManager() {
         withGlobalStyles
         withNormalizeCSS
       >
-        <Router>
-          <Routes>
-            <Route
-              path={"/"}
-              element={
-                <Landing
-                  color={primaryColor}
-                  primaryColorHandeler={setPrimaryColor}
-                />
-              }
-            />
-            <Route
-              path={"/login"}
-              element={
-                <Login
-                  color={primaryColor}
-                  primaryColorHandeler={setPrimaryColor}
-                />
-              }
-            />
-            <Route path={"/chat"} element={<ChatRoom />} />
-          </Routes>
-        </Router>
+        <App primaryColor={primaryColor} setPrimaryColor={setPrimaryColor} />
       </MantineProvider>
     </ColorSchemeProvider>
   );

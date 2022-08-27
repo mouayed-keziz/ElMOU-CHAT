@@ -3,9 +3,6 @@ import { IconMoonStars, IconSun } from "@tabler/icons";
 import HeroHeader from "../Components/HeroHeader";
 import NavigationBar from "../Components/NavigationBar";
 import Footer from "../Components/Footer";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
-import { auth } from "../firebase";
 
 export function SwitchThemeButton() {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
@@ -24,11 +21,7 @@ export function SwitchThemeButton() {
 }
 
 export default function Landing(props) {
-  const [user] = useAuthState(auth);
-  const navigate = useNavigate();
-  if (user) {
-    navigate("/chat");
-  }
+
   const { primaryColorHandeler, color } = props;
   return (
     <div>

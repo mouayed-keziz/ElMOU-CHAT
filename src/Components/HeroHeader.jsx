@@ -113,7 +113,7 @@ export default function HeroHeader(props) {
             </List>
 
             <Group mt={30}>
-              <Link to={"/login"}>
+              <Link to={"/ppp"}>
                 <Button radius="xl" size="md" className={classes.control}>
                   Get started
                 </Button>

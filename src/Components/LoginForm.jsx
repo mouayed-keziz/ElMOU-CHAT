@@ -14,21 +14,11 @@ import {
 import { useForm } from "@mantine/form";
 import { upperFirst, useToggle } from "@mantine/hooks";
 import { IconBrandFacebook, IconBrandGoogle } from "@tabler/icons";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { auth, db } from "../firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { doc, setDoc } from "firebase/firestore";
 
 export default function LoginForm(props) {
-  const [user] = useAuthState(auth);
-  const navigate = useNavigate();
-  if (user) {
-    //navigate("/chat");
-  }
   const [type, toggle] = useToggle(["login", "register"]);
-  const [unvalid, setUnvalid] = useState(false);
+  const [unvalid] = useState(false);
   const form = useForm({
     initialValues: {
       email: "",
@@ -45,40 +35,9 @@ export default function LoginForm(props) {
     },
   });
 
-  const putUserInfoInDb = async (user) => {
-    await setDoc(doc(db, "users", user.uid), {
-      name: user.displayName,
-      email: user.email,
-      photoURL: user.photoURL,
-    });
-    console.log("db done");
-  };
 
-  const submitHandeler = (e) => {
-    e.preventDefault();
-    if (type === "login") {
-      signInWithEmailAndPassword(auth, form.values.email, form.values.password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          setUnvalid(false);
-          navigate("/chat");
-        }).catch((error) => {
-          const errorMessage = error.message;
-          console.log(errorMessage);
-          setUnvalid(true);
-        });
-    } else {
-      createUserWithEmailAndPassword(auth, form.values.email, form.values.password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          console.log(user);
-          putUserInfoInDb(user);
-        }).catch((error) => {
-          const errorMessage = error.message;
-          console.log(errorMessage)
-        });
-    }
-  };
+
+
   return (
     <Container size={500} mt={100} mb={100}>
       <Paper radius="md" p="xl" withBorder {...props}>
@@ -90,7 +49,7 @@ export default function LoginForm(props) {
           <Button leftIcon={<IconBrandGoogle />} radius="xl">
             Google
           </Button>
-          <Button leftIcon={<IconBrandFacebook />} radius="xl">
+          <Button disabled leftIcon={<IconBrandFacebook />} radius="xl">
             Facebook
           </Button>
         </Group>
@@ -101,7 +60,7 @@ export default function LoginForm(props) {
           my="lg"
         />
 
-        <form onSubmit={submitHandeler}>
+        <form >
           <Stack>
             {type === "register" && (
               <TextInput
@@ -171,7 +130,6 @@ export default function LoginForm(props) {
           </Group>
         </form>
       </Paper>
-      <button onClick={(e) => putUserInfoInDb()}>debugging button!</button>
     </Container>
   );
 }
