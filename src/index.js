@@ -14,7 +14,9 @@ root.render(
 );
 
 function ApplicationRoutingAndThemeManager() {
-  const preferredColorScheme = useColorScheme("dark");
+  const theme = JSON.parse(localStorage.getItem("theme")) || "dark";
+  console.log("theme", theme);
+  const preferredColorScheme = useColorScheme(theme);
   const [colorScheme, setColorScheme] = useState(preferredColorScheme);
   const [primaryColor, setPrimaryColor] = useState("blue");
 

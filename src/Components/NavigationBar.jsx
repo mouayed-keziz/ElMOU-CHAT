@@ -11,18 +11,33 @@ import {
   ColorSwatch,
   CheckIcon,
   ThemeIcon,
+  Code,
+  UnstyledButton
 } from "@mantine/core";
-import { MantineLogo } from "@mantine/ds";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 import { SwitchThemeButton } from "../Pages/Landing";
 import { IconColorSwatch } from "@tabler/icons";
+import { Link } from "react-router-dom";
+
 const HEADER_HEIGHT = 60;
 
 const useStyles = createStyles((theme) => ({
   root: {
     position: "relative",
     zIndex: 1,
+  },
+
+  AppName: {
+    backgroundColor: theme.fn.lighten(
+      theme.fn.variant({
+        variant: "filled",
+        color: theme.primaryColor,
+      }).background,
+      0.1
+    ),
+    color: theme.white,
+    fontWeight: 700,
   },
 
   dropdown: {
@@ -142,7 +157,15 @@ export default function NavigationBar(props) {
   return (
     <Header height={HEADER_HEIGHT} mb={0} className={classes.root}>
       <Container className={classes.header}>
-        <MantineLogo type="mark" size={28} />
+        <Link to="/">
+          <UnstyledButton>
+            <motion.div whileHover={{ scale: 1.1 }}>
+              <Code py={5} className={classes.AppName}>
+                ELMOU CHAT
+              </Code>
+            </motion.div>
+          </UnstyledButton>
+        </Link>
         <Group spacing={5} className={classes.links}>
           {items}
           <motion.div whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.9 }}>

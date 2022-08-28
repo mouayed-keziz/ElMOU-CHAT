@@ -1,6 +1,6 @@
 
 import { ChatRoom, Landing, Login, PageNotFound, Profile, EditProfile } from "./pages";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 export default function App(props) {
     const { primaryColor, setPrimaryColor } = props;

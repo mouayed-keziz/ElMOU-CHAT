@@ -1,17 +1,29 @@
-import { ActionIcon, Anchor, createStyles, Group } from "@mantine/core";
-import { MantineLogo } from "@mantine/ds";
+import { ActionIcon, Anchor, createStyles, Group, Code, UnstyledButton } from "@mantine/core";
 import {
   IconBrandGithub,
   IconBrandInstagram,
   IconBrandLinkedin,
 } from "@tabler/icons";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
   footer: {
     marginTop: 120,
-    borderTop: `1px solid ${
-      theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2]
-    }`,
+    borderTop: `1px solid ${theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.gray[2]
+      }`,
+  },
+
+  AppName: {
+    backgroundColor: theme.fn.lighten(
+      theme.fn.variant({
+        variant: "filled",
+        color: theme.primaryColor,
+      }).background,
+      0.1
+    ),
+    color: theme.white,
+    fontWeight: 700,
   },
 
   inner: {
@@ -65,7 +77,15 @@ export default function Footer() {
   return (
     <div className={classes.footer}>
       <div className={classes.inner}>
-        <MantineLogo type="mark" size={28} />
+        <Link to="/">
+          <UnstyledButton>
+            <motion.div whileHover={{ scale: 1.1 }}>
+              <Code py={5} className={classes.AppName}>
+                ELMOU CHAT
+              </Code>
+            </motion.div>
+          </UnstyledButton>
+        </Link>
         <Group className={classes.links}>{items}</Group>
 
         <Group spacing="xs" position="right" noWrap>
