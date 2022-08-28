@@ -2,7 +2,7 @@ import { Grid } from "@mantine/core";
 import Conversation from "../Components/Conversation";
 import MessagesNav from "../Components/MessagesNav";
 
-export default function ChatRoom() {
+const ChatRoom = () => {
   return (
     <Grid grow style={{ margin: "0" }}>
       <Grid.Col span={3}>
@@ -14,3 +14,5 @@ export default function ChatRoom() {
     </Grid>
   );
 }
+
+export default ChatRoom;

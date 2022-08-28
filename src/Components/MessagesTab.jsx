@@ -45,7 +45,7 @@ const useStyle = createStyles((theme) => ({
     padding: 0,
   },
   scrollArea: {
-    height: "65vh",
+    height: "61vh",
     backgroundColor: theme.backgroundColor,
   },
 }));

@@ -31,7 +31,7 @@ const useStyle = createStyles((theme) => ({
     borderRadius: theme.radius.xl,
     color: theme.white,
     fontWeight: 530,
-    fontSize: 19,
+    fontSize: 14,
     lineHeight: 1.5,
     overflowWrap: "break-word",
   },
