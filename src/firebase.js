@@ -9,7 +9,7 @@ const firebaseConfig = {
     projectId: "elmo-chat-web",
     storageBucket: "elmo-chat-web.appspot.com",
     messagingSenderId: "544066054651",
-    appId: "1:544066054651:web:88aa372d410e989e0d835e"
+    appId: "1:544066054651:web:9d5a9e1f1c84a6840d835e"
 };
 
 const app = initializeApp(firebaseConfig);

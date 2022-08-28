@@ -15,8 +15,18 @@ import { useForm } from "@mantine/form";
 import { upperFirst, useToggle } from "@mantine/hooks";
 import { IconBrandFacebook, IconBrandGoogle } from "@tabler/icons";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { db, auth } from "../firebase";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+
+import { doc, getDoc, setDoc } from "firebase/firestore"
+import { useContext } from "react";
+import { AuthContext } from "../Context/AuthContext";
 
 export default function LoginForm(props) {
+
+  const { dispatch } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [type, toggle] = useToggle(["login", "register"]);
   const [unvalid] = useState(false);
   const form = useForm({
@@ -28,14 +38,86 @@ export default function LoginForm(props) {
     },
     validate: {
       email: (val) => (/^\S+@\S+$/.test(val) ? null : "Invalid email"),
-      password: (val) =>
-        val.length <= 6
-          ? "Password should include at least 6 characters"
-          : null,
+      password: (val) => val.length < 6 ? "Password should include at least 6 characters" : null,
+      name: (val) => type === "register" ? (val.length > 0 ? null : "Name is required") : null,
+      terms: (val) => val ? null : "You must accept the terms and conditions",
     },
   });
 
 
+  const submitHandeler = () => {
+    console.log(type);
+    if (type === "login") {
+      LoginHandeler();
+    }
+    if (type === "register") {
+      RegisterHandeler();
+    }
+  }
+
+  const LoginHandeler = async () => {
+    signInWithEmailAndPassword(auth, form.email, form.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        getDoc(doc(db, "users", user.uid)).then((docSnap) => {
+          if (docSnap.exists()) {
+            user.displayName = docSnap.data().displayName;
+            user.photoURL = docSnap.data().photoURL;
+            dispatch({ type: "LOGIN", payload: user });
+            navigate("/");
+          } else {
+            console.log("document not found");
+          }
+        }).catch((error) => {
+          console.log("error with firstore");
+        });
+      }).catch((error) => {
+        console.log("user not found")
+      });
+  }
+
+
+  const RegisterHandeler = async () => {
+    createUserWithEmailAndPassword(auth, form.email, form.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        setDoc(doc(db, "users", user.uid), {
+          displayName: form.name,
+          uid: user.uid,
+          email: user.email,
+          photoURL: user.photoURL,
+        });
+        user.displayName = form.name;
+        console.log(user);
+        dispatch({ type: "LOGIN", payload: user });
+        navigate("/");
+      }).catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage)
+      });
+  }
+
+  const GoogleAuthHandeler = (e) => {
+    e.preventDefault();
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)  // signInWithRedirect(provider)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+        setDoc(doc(db, "users", user.uid), {
+          displayName: user.displayName,
+          uid: user.uid,
+          email: user.email,
+          photoURL: user.photoURL,
+        });
+        dispatch({ type: "LOGIN", payload: user });
+        navigate("/");
+      }).catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      }
+      );
+  }
 
 
   return (
@@ -46,7 +128,7 @@ export default function LoginForm(props) {
         </Text>
 
         <Group grow mb="md" mt="md">
-          <Button leftIcon={<IconBrandGoogle />} radius="xl">
+          <Button onClick={GoogleAuthHandeler} leftIcon={<IconBrandGoogle />} radius="xl">
             Google
           </Button>
           <Button disabled leftIcon={<IconBrandFacebook />} radius="xl">
@@ -60,7 +142,7 @@ export default function LoginForm(props) {
           my="lg"
         />
 
-        <form >
+        <form onSubmit={form.onSubmit(() => submitHandeler())}>
           <Stack>
             {type === "register" && (
               <TextInput
@@ -70,6 +152,7 @@ export default function LoginForm(props) {
                 onChange={(event) =>
                   form.setFieldValue("name", event.currentTarget.value)
                 }
+                error={form.errors.name && "Name is required"}
               />
             )}
 
@@ -105,6 +188,7 @@ export default function LoginForm(props) {
                 onChange={(event) =>
                   form.setFieldValue("terms", event.currentTarget.checked)
                 }
+                error={form.errors.terms && "You must accept terms and conditions"}
               />
             )}
           </Stack>
@@ -130,6 +214,6 @@ export default function LoginForm(props) {
           </Group>
         </form>
       </Paper>
-    </Container>
+    </Container >
   );
 }
