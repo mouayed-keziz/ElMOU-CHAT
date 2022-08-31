@@ -1,7 +1,11 @@
-import { Code, createStyles, Group, Navbar, ScrollArea } from "@mantine/core";
+import { Avatar, Code, createStyles, Group, Navbar, ScrollArea } from "@mantine/core";
 import { IconLogout, IconSettings } from "@tabler/icons";
 import { ChatCard, SkeletonChatCard } from "../Components/ChatCard";
 import { motion } from "framer-motion";
+import { AuthContext } from "../Context/AuthContext";
+import { useState, useContext, useEffect } from "react";
+import { GetAllUsers } from "../actions";
+
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef("icon");
   return {
@@ -92,24 +96,33 @@ const useStyles = createStyles((theme, _params, getRef) => {
 const data = [0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2];
 
 export default function MessagesNav() {
+
+  const { currentUser, dispatch } = useContext(AuthContext);
+  const [contacts, setContacts] = useState(null);
+  useEffect(() => {
+    GetAllUsers().then(res => {
+      const contactsWithoutMe = res.filter(contact => contact.uid !== currentUser.uid);
+      setContacts(contactsWithoutMe);
+    });
+  }, [currentUser.uid]);
+
   const { classes } = useStyles(null);
 
   const ChatCards = (
     <ScrollArea style={{ height: "65vh", borderRadius: "4%" }}>
-      {data.map((v) => (
-        <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.9 }}>
-          {v !== 2 ? (
-            <ChatCard
-              image={"/logo192.png"}
-              name={"Mouayed KEZIZ"}
-              lastMessage={"Hello world!"}
-              isImg={v}
-            />
-          ) : (
-            <SkeletonChatCard />
-          )}
-        </motion.div>
-      ))}
+      {contacts ? (
+        contacts.map((contact, index) => (
+          <ChatCard
+            key={index}
+            user={contact}
+          />
+        ))
+      ) : (
+        data.map((_, index) => (
+          <SkeletonChatCard key={index} />
+        ))
+      )}
+
     </ScrollArea>
   );
 
@@ -122,6 +135,7 @@ export default function MessagesNav() {
               ELMOU CHAT
             </Code>
           </motion.div>
+          <Avatar color="primary" radius={"xl"} src={currentUser.photoURL} >{currentUser.displayName.charAt(0)}</Avatar>
         </Group>
         {ChatCards}
       </Navbar.Section>
@@ -140,7 +154,10 @@ export default function MessagesNav() {
           <a
             href="/logout"
             className={classes.link}
-            onClick={(event) => event.preventDefault()}
+            onClick={(e) => {
+              e.preventDefault();
+              dispatch({ type: "LOGOUT" });
+            }}
           >
             <IconLogout className={classes.linkIcon} stroke={1.5} />
             <span className={classes.twoLastSpams}>Logout</span>

@@ -1,6 +1,6 @@
 import { Avatar, Box, Group, Text } from "@mantine/core";
-export default function ConversationHeader(props) {
-  const { name } = props;
+export default function ConversationHeader({ user }) {
+
   return (
     <Box
       sx={(theme) => ({
@@ -21,13 +21,13 @@ export default function ConversationHeader(props) {
       })}
     >
       <Group>
-        <Avatar color="primary" radius="xl">
-          {name.charAt(0)}
+        <Avatar color="primary" radius="xl" src={user.photoURL}>
+          {user.displayName.charAt(0)}
         </Avatar>
 
         <div style={{ flex: 1 }}>
           <Text size="sm" weight={500}>
-            {name}
+            {user.displayName}
           </Text>
         </div>
       </Group>

@@ -2,7 +2,7 @@ import { Tabs } from "@mantine/core";
 import { IconMessageCircle, IconPhoto, IconSettings } from "@tabler/icons";
 import MessagesTab from "./MessagesTab";
 
-export default function ConevrsationTabs() {
+export default function ConevrsationTabs({ user }) {
   return (
     <Tabs radius="xs" defaultValue="messages">
       <Tabs.List grow>
@@ -18,7 +18,7 @@ export default function ConevrsationTabs() {
       </Tabs.List>
 
       <Tabs.Panel value="messages">
-        <MessagesTab name={"Mouayed"} />
+        <MessagesTab user={user} />
       </Tabs.Panel>
       <Tabs.Panel value="gallery">Gallery</Tabs.Panel>
       <Tabs.Panel value="settings">Settings</Tabs.Panel>

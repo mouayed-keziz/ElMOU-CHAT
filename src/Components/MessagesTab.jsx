@@ -3,6 +3,7 @@ import {
   Avatar,
   Box,
   Center,
+  Code,
   createStyles,
   Divider,
   Group,
@@ -12,7 +13,13 @@ import {
   Stack,
 } from "@mantine/core";
 import { IconMail as IconAt, IconSend } from "@tabler/icons";
+import { doc, onSnapshot } from "firebase/firestore";
+import { useState } from "react";
+import { useEffect, useContext, useRef } from "react";
+import { AuthContext } from "../Context/AuthContext";
+import { db } from "../firebase";
 import Message from "./Message";
+import { addMessage } from "../actions"
 
 const useStyle = createStyles((theme) => ({
   stack: {
@@ -36,7 +43,7 @@ const useStyle = createStyles((theme) => ({
     paddingBottom: theme.spacing.sm,
     color: theme.white,
     fontWeight: 700,
-    fontSize: 28,
+    fontSize: 18,
     lineHeight: 1.5,
   },
   text: {
@@ -49,100 +56,95 @@ const useStyle = createStyles((theme) => ({
     backgroundColor: theme.backgroundColor,
   },
 }));
-export default function MessagesTab(props) {
-  //generate some messages
-  const messages = [
-    {
-      id: "idTest",
-      text: "Hello World",
-      photo: true,
-      src: "https://avatars0.githubusercontent.com/u/174825?s=460&v=4",
-      name: "keziz",
-    },
-    {
-      id: "idTesta",
-      text: "Hello World",
-      photo: false,
-      name: "mouayed",
-    },
-    {
-      id: "idTest",
-      text: "Hello World",
-      photo: true,
-      src: "aa",
-      name: "John Doe",
-    },
-  ];
+export default function MessagesTab({ user }) {
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState(null);
+  const { currentUser } = useContext(AuthContext);
+  const bottomOfTheConversation = useRef();
   const { classes } = useStyle(null);
-  const { name } = props;
+
+  useEffect(() => {
+    const getMessages = async () => {
+      if (currentUser && user) {
+        const senderIsBigger = currentUser.uid.localeCompare(user.uid);
+        let convId = "";
+        if (senderIsBigger === -1) {
+          convId = currentUser.uid + user.uid;
+        }
+        else {
+          convId = user.uid + currentUser.uid;
+        }
+        const unsub = onSnapshot(doc(db, "conversations", convId), (doc) => {
+          console.log("Current data: ", doc.data());
+          if (doc.data()) {
+            setMessages(doc.data().messages);
+          }
+          else {
+            setMessages([]);
+          }
+          bottomOfTheConversation.current.scrollIntoView({ behavior: "smooth" });
+        });
+      }
+
+    }
+    getMessages();
+  }, [currentUser, user]);
+
+  const submitHandeler = (e) => {
+    e.preventDefault();
+    if (message !== "") {
+      addMessage(message, currentUser.uid, user.uid);
+      setMessage("");
+      bottomOfTheConversation.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+
   return (
-    <Box
-      sx={(theme) => ({
-        marginTop: theme.spacing.md,
-        backgroundColor:
-          theme.colorScheme === "dark"
-            ? theme.colors.dark[6]
-            : theme.colors.gray[0],
-        textAlign: "center",
-        borderRadius: theme.radius.md,
-      })}
+    <Box sx={(theme) => ({
+      marginTop: theme.spacing.md,
+      backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.colors.gray[0],
+      textAlign: "center",
+      borderRadius: theme.radius.md,
+    })}
     >
       <ScrollArea className={classes.scrollArea}>
-        <Box
-          sx={(theme) => ({
-            padding: theme.spacing.md,
-          })}
-        >
+        <Box sx={(theme) => ({ padding: theme.spacing.md, })} >
           <Center>
             <Stack align="center" className={classes.gap}>
               <Space h="xs" />
-              <Avatar
-                color={"primary"}
-                size="xl"
-                radius="xl"
-                className={classes.avatar}
-                m={0}
-                p={0}
-              >
-                {name.charAt(0)}
+              <Avatar color={"primary"} size="xl" radius="xl" className={classes.avatar} m={0} p={0} src={user.photoURL} >
+                {user.displayName.charAt(0)}
               </Avatar>
-              {/*
               <h2 className={classes.text}>
-                <Code className={classes.AppName}>{name}</Code>
+                <Code className={classes.AppName}>{user.displayName}</Code>
               </h2>
-            */}
             </Stack>
           </Center>
           <Space h={"xl"} />
           <Space h={"xl"} />
-          <Message
-            id="idTest"
-            name="Mouayed"
-            text="Hello H H H H H H H H H H H H H H H H H H H H H H H H H H H H "
-            photo={true}
-            src="/logo192.png"
-          />
-          <Message
-            id="idTest2"
-            name="Mouayed"
-            text="Hello H H H H H H H H H H H H H H H H H H H H H H H H H H H H "
-            photo={false}
-          />
-          {messages.map((message) => (
-            <Message
-              key={message.id}
-              id={message.id}
-              name={message.name}
-              text={message.text}
-              photo={message.photo}
-              src={message.src}
-            />
-          ))}
+          {messages === null ? ("loading...") :
+            messages.length === 0 ? (`start your conversation with ${user.displayName}`) :
+              <>
+                {messages.map((message, index) => (
+                  <Message
+                    key={index}
+                    id={message.senderId}
+                    text={message.message}
+                    user={user}
+                    time={message.time}
+                  />
+                ))}
+              </>
+          }
+
+          <span ref={bottomOfTheConversation}></span>
         </Box>
       </ScrollArea>
       <Divider my="sm" />
       <Group pr={25} pl={25} pb={15}>
         <Input
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
           icon={<IconAt />}
           sx={{ flex: 1 }}
           variant="filled"
@@ -150,7 +152,7 @@ export default function MessagesTab(props) {
           radius="lg"
           size="lg"
         />
-        <ActionIcon color="primary" size="xl" radius="xl" variant="filled">
+        <ActionIcon onClick={submitHandeler} color="primary" size="xl" radius="xl" variant="filled">
           <IconSend />
         </ActionIcon>
       </Group>

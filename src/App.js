@@ -3,6 +3,7 @@ import { ChatRoom, Landing, Login, PageNotFound, Profile, EditProfile } from "./
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
+
 export default function App(props) {
     const { primaryColor, setPrimaryColor } = props;
     const { currentUser } = useContext(AuthContext);
@@ -15,12 +16,17 @@ export default function App(props) {
         return (currentUser ? <Navigate to={"/chat"} /> : children);
     }
 
+    //const debugFunction = async () => {
+    //    console.log("debug");
+    //}
+
     return (
         <Router>
+            {/*<button onClick={debugFunction}>press me</button>*/}
             <Routes>
                 <Route path={"/"} element={<RequireNoAuth><Landing color={primaryColor} primaryColorHandeler={setPrimaryColor} /></RequireNoAuth>} />
                 <Route path={"/auth"} element={<RequireNoAuth><Login color={primaryColor} primaryColorHandeler={setPrimaryColor} /></RequireNoAuth>} />
-                <Route path={"/chat"} element={<RequireAuth><ChatRoom /></RequireAuth>} />
+                <Route path={"/chat*"} element={<RequireAuth><ChatRoom /></RequireAuth>} />
                 <Route path={"/profile"} element={<RequireAuth><Profile /></RequireAuth>} />
                 <Route path={"/edit"} element={<RequireAuth><EditProfile primaryColor={primaryColor} /></RequireAuth>} />
                 <Route path={"*"} element={<PageNotFound />} />
