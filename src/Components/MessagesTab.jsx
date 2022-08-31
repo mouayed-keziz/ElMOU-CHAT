@@ -7,10 +7,10 @@ import {
   createStyles,
   Divider,
   Group,
-  Input,
   ScrollArea,
   Space,
   Stack,
+  TextInput,
 } from "@mantine/core";
 import { IconMail as IconAt, IconSend } from "@tabler/icons";
 import { doc, onSnapshot } from "firebase/firestore";
@@ -137,25 +137,29 @@ export default function MessagesTab({ user }) {
               </>
           }
 
+          <Space h={"xl"} />
           <span ref={bottomOfTheConversation}></span>
         </Box>
       </ScrollArea>
       <Divider my="sm" />
-      <Group pr={25} pl={25} pb={15}>
-        <Input
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          icon={<IconAt />}
-          sx={{ flex: 1 }}
-          variant="filled"
-          placeholder="..."
-          radius="lg"
-          size="lg"
-        />
-        <ActionIcon onClick={submitHandeler} color="primary" size="xl" radius="xl" variant="filled">
-          <IconSend />
-        </ActionIcon>
-      </Group>
+      <form onClick={submitHandeler}>
+        <Group pr={25} pl={25} pb={15}>
+          <TextInput
+            autocomplete="off"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            icon={<IconAt />}
+            sx={{ flex: 1 }}
+            variant="filled"
+            placeholder="..."
+            radius="lg"
+            size="lg"
+          />
+          <ActionIcon type={"submit"} color="primary" size="xl" radius="xl" variant="filled">
+            <IconSend />
+          </ActionIcon>
+        </Group>
+      </form>
     </Box>
   );
 }

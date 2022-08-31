@@ -13,19 +13,8 @@ const useStyle = createStyles((theme) => ({
   group: {
     flexDirection: "row-reverse",
   },
-  messageContainerSent: {
-    backgroundColor: theme.fn.variant({
-      variant: "filled",
-      color: theme.primaryColor,
-    }).background,
-    borderRadius: theme.radius.xl,
-    color: theme.white,
-    fontWeight: 530,
-    fontSize: 14,
-    lineHeight: 1.5,
-    overflowWrap: "break-word",
-  },
-  messageContainerReceived: {
+
+  message: {
     backgroundColor: theme.fn.variant({
       variant: "filled",
       color: theme.primaryColor,
@@ -51,8 +40,8 @@ export default function Message(props) {
 
   const { classes } = useStyle(null);
   return (
-    <Group mb={10} position={authID === id ? "right" : "left"}>
-      <Group className={authID === id ? classes.group : null}>
+    <Group mb={10} position={sender.uid === currentUser.uid ? "right" : "left"}>
+      <Group className={sender.uid === currentUser.uid ? classes.group : null}>
         <HoverCard>
           <HoverCard.Target>
             <Avatar src={sender.photoURL} size="lg" color="primary" radius={"xl"}>
@@ -67,7 +56,7 @@ export default function Message(props) {
         <HoverCard>
           <HoverCard.Target>
             <Container
-              className={sender.uid === currentUser.uid ? classes.messageContainerSent : classes.messageContainerReceived}
+              className={classes.message}
               style={{ maxWidth: "60%", marginLeft: 0, marginRight: 0, }} px="md" py="xs"
             >
               {text}
