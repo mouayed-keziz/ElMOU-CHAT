@@ -1,10 +1,11 @@
-import { Avatar, Code, createStyles, Group, Navbar, ScrollArea } from "@mantine/core";
+import { Anchor, Avatar, Code, Container, createStyles, Group, Navbar, ScrollArea } from "@mantine/core";
 import { IconLogout, IconSettings } from "@tabler/icons";
 import { ChatCard, SkeletonChatCard } from "../Components/ChatCard";
 import { motion } from "framer-motion";
 import { AuthContext } from "../Context/AuthContext";
 import { useState, useContext, useEffect } from "react";
 import { GetAllUsers } from "../actions";
+import { Link } from "react-router-dom";
 
 
 
@@ -112,18 +113,25 @@ export default function MessagesNav() {
 
   const ChatCards = (
     <ScrollArea style={{ height: "65vh", borderRadius: "4%" }}>
-      {contacts ? (
+      {!contacts ? (
+        data.map((_, index) => (
+          <SkeletonChatCard key={index} />
+        ))
+      ) : contacts.length > 0 ? (
         contacts.map((contact, index) => (
           <ChatCard
             key={index}
             user={contact}
           />
         ))
-      ) : (
-        data.map((_, index) => (
-          <SkeletonChatCard key={index} />
-        ))
-      )}
+      ) : <Container sx={(theme) => ({
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+        width: "100%",
+        flexDirection: "column",
+      })}><Code color="primary">no contacts</Code></Container>}
 
     </ScrollArea>
   );
@@ -141,7 +149,11 @@ export default function MessagesNav() {
               ELMOU CHAT
             </Code>
           </motion.div>
-          <Avatar color="primary" radius={"xl"} src={currentUser.photoURL} >{currentUser.displayName.charAt(0)}</Avatar>
+          <Anchor component={Link} to="/profile">
+            <motion.div whileHover={{ scale: 1.3 }}>
+              <Avatar color="primary" radius={"lg"} src={currentUser.photoURL} >{currentUser.displayName.charAt(0)}</Avatar>
+            </motion.div>
+          </Anchor>
         </Group>
         {ChatCards}
       </Navbar.Section>

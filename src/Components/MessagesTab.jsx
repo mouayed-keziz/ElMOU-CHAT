@@ -1,5 +1,6 @@
 import {
   ActionIcon,
+  Anchor,
   Avatar,
   Box,
   Center,
@@ -20,6 +21,7 @@ import { AuthContext } from "../Context/AuthContext";
 import { db } from "../firebase";
 import Message from "./Message";
 import { addMessage } from "../actions"
+import { Link } from "react-router-dom";
 
 const useStyle = createStyles((theme) => ({
   stack: {
@@ -99,6 +101,7 @@ export default function MessagesTab({ user }) {
     }
   }
 
+
   return (
     <Box sx={(theme) => ({
       marginTop: theme.spacing.md,
@@ -112,12 +115,16 @@ export default function MessagesTab({ user }) {
           <Center>
             <Stack align="center" className={classes.gap}>
               <Space h="xs" />
-              <Avatar color={"primary"} size="xl" radius="xl" className={classes.avatar} m={0} p={0} src={user.photoURL} >
-                {user.displayName.charAt(0)}
-              </Avatar>
-              <h2 className={classes.text}>
-                <Code className={classes.AppName}>{user.displayName}</Code>
-              </h2>
+              <Anchor component={Link} to={`/profile/${user.uid}`}>
+                <Avatar color={"primary"} size="xl" radius="xl" className={classes.avatar} m={0} p={0} src={user.photoURL} >
+                  {user.displayName.charAt(0)}
+                </Avatar>
+              </Anchor>
+              <Anchor component={Link} to={`/profile/${user.uid}`}>
+                <h2 className={classes.text}>
+                  <Code className={classes.AppName}>{user.displayName}</Code>
+                </h2>
+              </Anchor>
             </Stack>
           </Center>
           <Space h={"xl"} />

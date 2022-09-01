@@ -41,15 +41,19 @@ export default function ConversationHeader({ user }) {
             <IconArrowLeft size={34} />
           </ActionIcon>
         </Anchor>
-        <Avatar color="primary" radius="xl" src={user.photoURL}>
-          {user.displayName.charAt(0)}
-        </Avatar>
+        <Anchor component={Link} to={`/profile/${user.uid}`}>
+          <Group>
+            <Avatar color="primary" radius="xl" src={user.photoURL}>
+              {user.displayName.charAt(0)}
+            </Avatar>
 
-        <div style={{ flex: 1 }}>
-          <Text size="sm" weight={500}>
-            {user.displayName}
-          </Text>
-        </div>
+            <div style={{ flex: 1 }}>
+              <Text size="sm" weight={500}>
+                {user.displayName}
+              </Text>
+            </div>
+          </Group>
+        </Anchor>
       </Group>
     </Box>
   );
