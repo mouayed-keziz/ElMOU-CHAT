@@ -74,7 +74,7 @@ export default function MessagesTab({ user }) {
         else {
           convId = user.uid + currentUser.uid;
         }
-        const unsub = onSnapshot(doc(db, "conversations", convId), (doc) => {
+        onSnapshot(doc(db, "conversations", convId), (doc) => {
           console.log("Current data: ", doc.data());
           if (doc.data()) {
             setMessages(doc.data().messages);

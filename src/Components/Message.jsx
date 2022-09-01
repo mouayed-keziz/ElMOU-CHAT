@@ -28,9 +28,8 @@ const useStyle = createStyles((theme) => ({
   },
 }));
 export default function Message(props) {
-  const { currentUser } = useContext(AuthContext);
-  const authID = "idTest";
   const { id, text, user, time } = props;
+  const { currentUser } = useContext(AuthContext);
   let sender = null;
   if (id === currentUser.uid) {
     sender = currentUser;

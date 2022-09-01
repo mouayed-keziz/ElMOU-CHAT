@@ -43,7 +43,7 @@ export function ChatCard({ user }) {
       <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.9 }}>
         <UnstyledButton className={classes.user}>
           <Group>
-            <Avatar src={user.photoURL} radius={"xl"} >{user.displayName.charAt(0)}</Avatar>
+            <Avatar src={user.photoURL} radius={"xl"} color="primary">{user.displayName.charAt(0)}</Avatar>
             <div style={{ flex: 1 }}>
               <Text className={classes.dontShowBetweenSmXs} size="sm" weight={500}>
                 {user.displayName}

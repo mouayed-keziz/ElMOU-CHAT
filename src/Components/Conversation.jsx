@@ -1,14 +1,12 @@
 import { Stack } from "@mantine/core";
 import { doc, getDoc } from "firebase/firestore";
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { AuthContext } from "../Context/AuthContext";
 import { db } from "../firebase";
 import ConversationHeader from "./ConevrsationHeader";
 import ConevrsationTabs from "./ConevsationTabs";
 
 export default function Conversation() {
-  const { currentUser } = useContext(AuthContext);
   const { id } = useParams();
   const navigate = useNavigate();
 

@@ -1,4 +1,6 @@
-import { Avatar, Box, Group, Text } from "@mantine/core";
+import { ActionIcon, Anchor, Avatar, Box, Group, Text } from "@mantine/core";
+import { IconArrowLeft } from "@tabler/icons";
+import { Link } from "react-router-dom";
 export default function ConversationHeader({ user }) {
 
   return (
@@ -10,7 +12,6 @@ export default function ConversationHeader({ user }) {
             : theme.colors.gray[0],
         padding: theme.spacing.sm,
         borderRadius: theme.radius.md,
-        cursor: "pointer",
 
         "&:hover": {
           backgroundColor:
@@ -21,6 +22,25 @@ export default function ConversationHeader({ user }) {
       })}
     >
       <Group>
+        <Anchor component={Link} to={`/chat`}>
+          <ActionIcon size="xl" radius="xl" variant="transparent"
+            sx={(theme) => ({
+              cursor: "pointer",
+              display: "none",
+              paddingLeft: "3px",
+              "&:hover": {
+                backgroundColor:
+                  theme.colorScheme === "dark"
+                    ? theme.colors.dark[8]
+                    : theme.colors.gray[0],
+              },
+              "@media (max-width: 643px)": {
+                display: "block",
+              },
+            })}>
+            <IconArrowLeft size={34} />
+          </ActionIcon>
+        </Anchor>
         <Avatar color="primary" radius="xl" src={user.photoURL}>
           {user.displayName.charAt(0)}
         </Avatar>

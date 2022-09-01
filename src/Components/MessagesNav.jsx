@@ -6,6 +6,8 @@ import { AuthContext } from "../Context/AuthContext";
 import { useState, useContext, useEffect } from "react";
 import { GetAllUsers } from "../actions";
 
+
+
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef("icon");
   return {
@@ -126,8 +128,12 @@ export default function MessagesNav() {
     </ScrollArea>
   );
 
+  //how to know which path
+
+
+
   return (
-    <Navbar height={"90vh"} p="md">
+    <Navbar height={"90vh"} p="md" xs>
       <Navbar.Section grow>
         <Group className={classes.header} position="apart">
           <motion.div whileHover={{ scale: 1.1 }}>

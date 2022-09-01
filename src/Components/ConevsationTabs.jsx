@@ -1,4 +1,4 @@
-import { Tabs } from "@mantine/core";
+import { Center, Tabs } from "@mantine/core";
 import { IconMessageCircle, IconPhoto, IconSettings } from "@tabler/icons";
 import MessagesTab from "./MessagesTab";
 
@@ -20,8 +20,8 @@ export default function ConevrsationTabs({ user }) {
       <Tabs.Panel value="messages">
         <MessagesTab user={user} />
       </Tabs.Panel>
-      <Tabs.Panel value="gallery">Gallery</Tabs.Panel>
-      <Tabs.Panel value="settings">Settings</Tabs.Panel>
+      <Tabs.Panel value="gallery"><Center>"Gallery coming soon..."</Center></Tabs.Panel>
+      <Tabs.Panel value="settings"><Center>"Settings coming soon..."</Center></Tabs.Panel>
     </Tabs>
   );
 }
