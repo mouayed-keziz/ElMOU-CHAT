@@ -1,16 +1,4 @@
-import {
-  Anchor,
-  Button,
-  Checkbox,
-  Container,
-  Divider,
-  Group,
-  Paper,
-  PasswordInput,
-  Stack,
-  Text,
-  TextInput,
-} from "@mantine/core";
+import {  Anchor,  Button,  Checkbox,  Container,  Divider,  Group,  Paper,  PasswordInput,  Stack,  Text,  TextInput,} from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { upperFirst, useToggle } from "@mantine/hooks";
 import { IconBrandFacebook, IconBrandGoogle } from "@tabler/icons";
